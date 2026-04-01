@@ -1,87 +1,588 @@
 <!doctype html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Татьяна — Business Analyst</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Татьяна Денежкина — Business Analyst / System Analyst</title>
+  <meta name="description" content="Бизнес- и системный аналитик: требования, бизнес-логика, данные, интеграции, документация и сопровождение delivery." />
   <style>
+    :root {
+      --bg: #f5f7fb;
+      --surface: rgba(255, 255, 255, 0.82);
+      --surface-strong: #ffffff;
+      --text: #172033;
+      --muted: #5d6880;
+      --line: #dbe2f0;
+      --accent: #3559e0;
+      --accent-soft: #e8eeff;
+      --shadow: 0 20px 60px rgba(28, 39, 66, 0.08);
+      --radius: 22px;
+      --max: 1120px;
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
     body {
       margin: 0;
-      font-family: Arial, sans-serif;
-      background: #f6f7fb;
-      color: #222;
+      font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(53, 89, 224, 0.10), transparent 34%),
+        radial-gradient(circle at top right, rgba(63, 120, 255, 0.08), transparent 30%),
+        var(--bg);
+      line-height: 1.6;
     }
-    .wrap {
-      max-width: 900px;
-      margin: 0 auto;
-      padding: 40px 20px;
-    }
-    h1 {
-      margin-bottom: 8px;
-      font-size: 42px;
-    }
-    .role {
-      font-size: 22px;
-      color: #555;
-      margin-bottom: 20px;
-    }
-    .card {
-      background: white;
-      border: 1px solid #e3e6ef;
-      border-radius: 14px;
-      padding: 20px;
-      margin-bottom: 16px;
-    }
+
     a {
-      color: #2b65d9;
+      color: var(--accent);
       text-decoration: none;
     }
-    a:hover {
-      text-decoration: underline;
+
+    a:hover { text-decoration: underline; }
+
+    .container {
+      width: min(calc(100% - 32px), var(--max));
+      margin: 0 auto;
     }
-    ul {
-      padding-left: 20px;
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      backdrop-filter: blur(16px);
+      background: rgba(245, 247, 251, 0.72);
+      border-bottom: 1px solid rgba(219, 226, 240, 0.65);
+    }
+
+    .topbar-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      min-height: 72px;
+    }
+
+    .brand {
+      font-weight: 700;
+      letter-spacing: 0.02em;
+    }
+
+    .nav {
+      display: flex;
+      gap: 18px;
+      flex-wrap: wrap;
+      font-size: 14px;
+      color: var(--muted);
+    }
+
+    .nav a { color: var(--muted); }
+
+    .hero {
+      padding: 72px 0 28px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.3fr 0.9fr;
+      gap: 24px;
+      align-items: stretch;
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid rgba(219, 226, 240, 0.9);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    .hero-main {
+      padding: 40px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: var(--accent-soft);
+      color: var(--accent);
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 18px;
+    }
+
+    h1 {
+      font-size: clamp(34px, 6vw, 62px);
+      line-height: 1.05;
+      margin: 0 0 14px;
+      letter-spacing: -0.03em;
+    }
+
+    .subtitle {
+      font-size: clamp(18px, 2.4vw, 24px);
+      color: var(--muted);
+      margin: 0 0 22px;
+      max-width: 780px;
+    }
+
+    .hero-text {
+      font-size: 17px;
+      max-width: 780px;
+      margin: 0 0 28px;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 48px;
+      padding: 0 18px;
+      border-radius: 14px;
+      border: 1px solid var(--line);
+      background: var(--surface-strong);
+      color: var(--text);
+      font-weight: 600;
+      text-decoration: none;
+    }
+
+    .button.primary {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    .hero-side {
+      padding: 28px;
+      display: grid;
+      gap: 16px;
+      align-content: start;
+    }
+
+    .side-box {
+      padding: 18px 18px 16px;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: rgba(255,255,255,0.78);
+    }
+
+    .side-title {
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+
+    .side-text {
+      margin: 0;
+      font-size: 15px;
+    }
+
+    section {
+      padding: 28px 0;
+    }
+
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 24px;
+      align-items: end;
+      margin-bottom: 20px;
+    }
+
+    h2 {
+      font-size: clamp(28px, 4vw, 40px);
+      line-height: 1.1;
+      margin: 0;
+      letter-spacing: -0.02em;
+    }
+
+    .section-note {
+      max-width: 560px;
+      color: var(--muted);
+      margin: 0;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .feature-card,
+    .domain-card,
+    .tool-card,
+    .case-card {
+      padding: 24px;
+    }
+
+    .feature-card h3,
+    .domain-card h3,
+    .tool-card h3,
+    .case-card h3 {
+      margin: 0 0 10px;
+      font-size: 20px;
+    }
+
+    .feature-card p,
+    .domain-card p,
+    .tool-card p,
+    .case-card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 15px;
+    }
+
+    .metrics {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 16px;
+      margin-top: 8px;
+    }
+
+    .metric {
+      padding: 22px 20px;
+      text-align: left;
+    }
+
+    .metric-number {
+      font-size: clamp(28px, 4vw, 42px);
+      line-height: 1;
+      margin-bottom: 10px;
+      font-weight: 800;
+      letter-spacing: -0.04em;
+    }
+
+    .metric-label {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .delivery {
+      padding: 30px;
+    }
+
+    .check-list {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px 24px;
+      padding: 0;
+      margin: 18px 0 0;
+      list-style: none;
+    }
+
+    .check-list li {
+      position: relative;
+      padding-left: 18px;
+    }
+
+    .check-list li::before {
+      content: "•";
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+      font-weight: 700;
+    }
+
+    .footer-card {
+      padding: 28px;
+      margin: 14px 0 56px;
+    }
+
+    .contacts {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    .contact-chip {
+      display: inline-flex;
+      align-items: center;
+      min-height: 44px;
+      padding: 0 16px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: #fff;
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .placeholder-note {
+      margin-top: 14px;
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    @media (max-width: 1080px) {
+      .hero-grid,
+      .grid-3,
+      .metrics {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 760px) {
+      .topbar-inner,
+      .section-head {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .hero {
+        padding-top: 36px;
+      }
+
+      .hero-grid,
+      .grid-3,
+      .grid-2,
+      .metrics,
+      .check-list {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-main,
+      .hero-side,
+      .delivery,
+      .feature-card,
+      .domain-card,
+      .tool-card,
+      .case-card,
+      .metric,
+      .footer-card {
+        padding: 22px;
+      }
     }
   </style>
 </head>
 <body>
-  <div class="wrap">
-    <h1>Татьяна</h1>
-    <div class="role">Business Analyst / System Analyst</div>
-
-    <div class="card">
-      <p>
-        Аналитик с опытом работы с требованиями, бизнес-процессами,
-        интеграциями, API и проектированием решений.
-      </p>
-      <p>
-        Telegram: <a href="https://t.me/yourusername">@yourusername</a><br>
-        Email: <a href="mailto:you@example.com">you@example.com</a>
-      </p>
+  <header class="topbar">
+    <div class="container topbar-inner">
+      <div class="brand">Татьяна Денежкина</div>
+      <nav class="nav">
+        <a href="#about">Обо мне</a>
+        <a href="#focus">Чем занимаюсь</a>
+        <a href="#metrics">Цифры</a>
+        <a href="#domains">Предметные области</a>
+        <a href="#contact">Контакты</a>
+      </nav>
     </div>
+  </header>
 
-    <div class="card">
-      <h2>Что я делаю</h2>
-      <ul>
-        <li>Собираю и формализую требования</li>
-        <li>Описываю бизнес- и системную логику</li>
-        <li>Готовлю user stories, use cases, acceptance criteria</li>
-        <li>Прорабатываю интеграции, API, структуры данных</li>
-      </ul>
-    </div>
+  <main class="container">
+    <section class="hero" id="about">
+      <div class="hero-grid">
+        <article class="card hero-main">
+          <div class="eyebrow">Business Analyst / System Analyst</div>
+          <h1>Анализ требований, данные, интеграции и delivery — в одной точке.</h1>
+          <p class="subtitle">
+            Собираю и формализую бизнес-требования, выявляю реальные потребности заказчиков и пользователей,
+            превращаю бизнес-логику в понятные постановки для продуктовой команды, разработки и QA.
+          </p>
+          <p class="hero-text">
+            Работаю с процессами, данными, интеграциями, документацией и сопровождением изменений до результата.
+            Есть опыт в корпоративных системах, low-code среде, API-сценариях, настройке логики и быстрой адаптации к новой предметной области.
+          </p>
+          <div class="actions">
+            <!-- ЗАМЕНИТЕ # НА ССЫЛКУ НА PDF-РЕЗЮМЕ, КОГДА ЗАГРУЗИТЕ ЕГО В РЕПОЗИТОРИЙ -->
+            <a class="button primary" href="#">Резюме PDF</a>
+            <!-- ЗАМЕНИТЕ ССЫЛКУ НА СВОЙ TELEGRAM -->
+            <a class="button" href="https://t.me/yourtelegram" target="_blank" rel="noreferrer">Telegram</a>
+            <!-- ЗАМЕНИТЕ НА СВОЙ EMAIL -->
+            <a class="button" href="mailto:you@example.com">Email</a>
+            <!-- ЗАМЕНИТЕ НА ССЫЛКУ НА HH -->
+            <a class="button" href="https://hh.ru" target="_blank" rel="noreferrer">HeadHunter</a>
+          </div>
+          <div class="placeholder-note">
+            Где нужно подставить свои данные, я оставил комментарии в коде: Telegram, email, HH и ссылка на PDF-резюме.
+          </div>
+        </article>
 
-    <div class="card">
-      <h2>Инструменты</h2>
-      <p>Jira, Confluence, SQL, REST API, Swagger, JSON, BPMN, UML</p>
-    </div>
+        <aside class="card hero-side">
+          <div class="side-box">
+            <div class="side-title">Фокус</div>
+            <p class="side-text">Требования, бизнес-логика, REST API, JSON, валидации, сценарии, документация, сопровождение релизов.</p>
+          </div>
+          <div class="side-box">
+            <div class="side-title">Рабочий формат</div>
+            <p class="side-text">Стейкхолдеры, продуктовая команда, разработка, QA, смежные блоки, демонстрации и передача решений в реализацию.</p>
+          </div>
+          <div class="side-box">
+            <div class="side-title">Подход</div>
+            <p class="side-text">От выявления потребности и описания процесса до детальной логики данных, проверки сценариев и передачи задачи в delivery.</p>
+          </div>
+        </aside>
+      </div>
+    </section>
 
-    <div class="card">
-      <h2>Обо мне</h2>
-      <p>
-        Люблю превращать хаос требований в понятную структуру для бизнеса,
-        разработки и тестирования.
-      </p>
-    </div>
-  </div>
+    <section id="focus">
+      <div class="section-head">
+        <h2>Чем я занимаюсь</h2>
+        <p class="section-note">
+          Не завязываюсь на одну предметную область. Мой профиль — это сильный BA/SA на стыке бизнеса, системы, данных и команды реализации.
+        </p>
+      </div>
+      <div class="grid-3">
+        <article class="card feature-card">
+          <h3>Анализ требований и стейкхолдеры</h3>
+          <p>Собираю, структурирую и согласую требования с бизнесом, пользователями, продуктовой командой, разработкой и QA. Фиксирую ограничения, приоритеты и критерии готовности.</p>
+        </article>
+        <article class="card feature-card">
+          <h3>Бизнес- и системный анализ</h3>
+          <p>Описываю AS IS / TO BE, декомпозирую требования до объектов, атрибутов, состояний, правил обработки, валидаций и межсистемных зависимостей. Готовлю User Story, Use Case, Acceptance Criteria, схемы и диаграммы.</p>
+        </article>
+        <article class="card feature-card">
+          <h3>Данные и интеграции</h3>
+          <p>Работаю с REST API, request/response, JSON, логическими сценариями, обязательными параметрами, источниками данных и правилами их обработки. Проверяю корректность связей между системами.</p>
+        </article>
+        <article class="card feature-card">
+          <h3>Настройка и сопровождение решений</h3>
+          <p>Участвую в практической настройке логики в корпоративной платформе: проверяю сценарии, данные, валидации и итоговый результат на стороне системы, сопровождаю изменения до релиза.</p>
+        </article>
+        <article class="card feature-card">
+          <h3>Документация и передача знаний</h3>
+          <p>Подготавливаю ТЗ, функциональные задания, таблицы атрибутов, инструкции, схемы, спецификации и пользовательскую документацию. Провожу демо и помогаю команде быстрее входить в процесс.</p>
+        </article>
+        <article class="card feature-card">
+          <h3>Роль в delivery</h3>
+          <p>Сопровождаю задачу на всём пути реализации: от сбора требований и подготовки постановки до тестирования, приёмки, релиза и поддержки передачи изменений в продуктовую среду.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="metrics">
+      <div class="section-head">
+        <h2>Цифры</h2>
+        <p class="section-note">
+          Ниже оставлены только безопасные метрики, которые не вызывают лишних вопросов на интервью и не выглядят как натянутые оценки.
+        </p>
+      </div>
+      <div class="metrics">
+        <article class="card metric">
+          <div class="metric-number">16+</div>
+          <div class="metric-label">лет профессионального опыта</div>
+        </article>
+        <article class="card metric">
+          <div class="metric-number">7+</div>
+          <div class="metric-label">лет на крупных системных проектах</div>
+        </article>
+        <article class="card metric">
+          <div class="metric-number">5+</div>
+          <div class="metric-label">формализованных процессов</div>
+        </article>
+        <article class="card metric">
+          <div class="metric-number">10+</div>
+          <div class="metric-label">задач одновременно в сопровождении</div>
+        </article>
+        <article class="card metric">
+          <div class="metric-number">30+</div>
+          <div class="metric-label">инструкций и рабочих документов</div>
+        </article>
+      </div>
+    </section>
+
+    <section>
+      <article class="card delivery">
+        <div class="section-head" style="margin-bottom: 12px;">
+          <h2 style="font-size: clamp(24px, 3.4vw, 34px);">Как я работаю в реализации</h2>
+          <p class="section-note">Этот блок хорошо показывает тебя не как “описала требования и ушла”, а как человека, который доводит задачу до результата.</p>
+        </div>
+        <ul class="check-list">
+          <li>Выявляю потребности бизнеса и пользователей</li>
+          <li>Формализую требования и бизнес-правила</li>
+          <li>Готовлю постановку в разработку</li>
+          <li>Прорабатываю данные, сценарии и валидации</li>
+          <li>Синхронизирую бизнес, продукт, разработку и QA</li>
+          <li>Сопровождаю тестирование и приёмку</li>
+          <li>Подготавливаю инструкции и документацию</li>
+          <li>Поддерживаю передачу изменений в релиз</li>
+        </ul>
+      </article>
+    </section>
+
+    <section id="domains">
+      <div class="section-head">
+        <h2>Предметные области</h2>
+        <p class="section-note">
+          HR здесь не как ограничение, а как одна из зон экспертизы. Главная подача — универсальный BA/SA-профиль с быстрой адаптацией к новому домену.
+        </p>
+      </div>
+      <div class="grid-2">
+        <article class="card domain-card">
+          <h3>Корпоративные процессы и внутренние системы</h3>
+          <p>Анализ процессов, справочников, логики маршрутов, ролей, зависимостей и пользовательских сценариев в корпоративной среде.</p>
+        </article>
+        <article class="card domain-card">
+          <h3>HR-сценарии и кадровые процессы</h3>
+          <p>Кадровые мероприятия, документы, справочники, атрибутные модели, связи между HR-объектами, правами, оргструктурой и данными.</p>
+        </article>
+        <article class="card domain-card">
+          <h3>Документооборот и печатные формы</h3>
+          <p>Формирование логики документов, шаблонов, правил вывода данных, пользовательских сценариев и связанной документации.</p>
+        </article>
+        <article class="card domain-card">
+          <h3>CRM, отчётность и интеграционные процессы</h3>
+          <p>Сценарии взаимодействия систем, правила передачи данных, аналитические блоки, отчётность и кросс-модульные зависимости.</p>
+        </article>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head">
+        <h2>Инструменты и подход</h2>
+        <p class="section-note">
+          Формулировки ниже намеренно без перегиба: они отражают рабочий уровень, а не искусственно “прокачанный” стек ради витрины.
+        </p>
+      </div>
+      <div class="grid-3">
+        <article class="card tool-card">
+          <h3>Анализ и моделирование</h3>
+          <p>BPMN, User Story, Use Case, AS IS / TO BE, Acceptance Criteria, бизнес-правила, схемы, диаграммы, таблицы атрибутов.</p>
+        </article>
+        <article class="card tool-card">
+          <h3>Данные и интеграции</h3>
+          <p>REST API, JSON, правила валидации, модели данных, логические сценарии, SQL на базовом уровне, простые запросы и проверка корректности данных.</p>
+        </article>
+        <article class="card tool-card">
+          <h3>Рабочие инструменты</h3>
+          <p>Miro, Draw.io, Power BI, Power Query, документация, инструкции, демо, сопровождение изменений и релизов.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="contact">
+      <article class="card footer-card">
+        <h2 style="font-size: clamp(24px, 3.4vw, 34px);">Контакты</h2>
+        <p class="section-note" style="max-width: 700px;">
+          Этот блок тебе нужно будет заполнить своими ссылками вручную. Все места, где требуется подставить данные, отмечены прямо в коде комментариями <strong>ЗАМЕНИТЕ...</strong>.
+        </p>
+        <div class="contacts">
+          <!-- ЗАМЕНИТЕ НА СВОЮ ССЫЛКУ TELEGRAM -->
+          <a class="contact-chip" href="https://t.me/yourtelegram" target="_blank" rel="noreferrer">Telegram</a>
+          <!-- ЗАМЕНИТЕ НА СВОЙ EMAIL -->
+          <a class="contact-chip" href="mailto:you@example.com">you@example.com</a>
+          <!-- ЗАМЕНИТЕ НА СВОЮ ССЫЛКУ НА HH -->
+          <a class="contact-chip" href="https://hh.ru">HeadHunter</a>
+          <!-- ДОБАВЬТЕ ССЫЛКУ НА GITHUB, ЕСЛИ ХОТИТЕ -->
+          <a class="contact-chip" href="https://github.com/yourusername" target="_blank" rel="noreferrer">GitHub</a>
+        </div>
+      </article>
+    </section>
+  </main>
 </body>
 </html>
